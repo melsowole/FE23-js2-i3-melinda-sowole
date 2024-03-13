@@ -1,0 +1,91 @@
+@import "./text-style.css";
+@import url("https://fonts.googleapis.com/css2?family=Long+Cang&display=swap");
+
+:root {
+  --dark: black;
+  --light: white;
+  --color: pink;
+  --neut: rgb(243, 243, 242);
+}
+
+body {
+  margin: 0;
+}
+
+/* HEADER */
+
+header {
+  background-color: var(--dark);
+  color: var(--light);
+  padding: 2rem 0 1.5rem;
+}
+
+header .title {
+  font-family: "Long Cang", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3rem;
+  text-align: center;
+}
+
+/* PRODUCT SECTION */
+main {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.products {
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
+  gap: 1.5rem 1.5rem;
+}
+
+.product {
+  width: 200px;
+}
+
+.product .product-image-wrapper {
+  height: 250px;
+  background-color: var(--neut);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 0.5rem;
+}
+
+.product img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.product .brand {
+  text-transform: uppercase;
+}
+
+.product .description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* FOOTER */
+footer {
+  background-color: var(--dark);
+  color: var(--light);
+  height: 300px;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+footer a {
+  color: inherit;
+  margin-right: 1rem;
+}
