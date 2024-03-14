@@ -7,7 +7,7 @@ export type Product = {
   brand: string;
   category: string;
   price: number;
-  discount: number | false; // round
+  discount: number; // round
 };
 
 export default class ApiClient {
@@ -17,8 +17,6 @@ export default class ApiClient {
     const url =
       this.baseUrl +
       (typeof category == "string" ? `/category/${category}` : "");
-
-    console.log(url);
 
     let res = await fetch(url);
     const data = await res.json();
@@ -43,7 +41,7 @@ export default class ApiClient {
           title,
           brand,
           price,
-          discount: Math.round(discountPercentage),
+          discount: Math.round(discountPercentage / 10) * 10,
           description,
           category,
           image: images[0],

@@ -20,7 +20,7 @@ const navCategories: productCategory[] = [
       "womens-shoes",
       "womens-watches",
       "womens-bags",
-      "womens-jewellry",
+      "womens-jewellery",
     ],
   },
   {
@@ -46,7 +46,7 @@ const navCategories: productCategory[] = [
 ];
 
 export default class Navigation {
-  static render(container: HTMLElement) {
+  static render(container: HTMLElement): void {
     for (const category of navCategories) {
       const categoryContainer = document.createElement("div");
       container.append(categoryContainer);
@@ -64,7 +64,7 @@ export default class Navigation {
     }
   }
 
-  private static createCategoryLabel(name: string) {
+  private static createCategoryLabel(name: string): HTMLElement {
     const categoryName = document.createElement("label");
     categoryName.classList.add("category-name");
     categoryName.innerHTML = `<small><b>${name}</b></small>`;
@@ -72,7 +72,7 @@ export default class Navigation {
     return categoryName;
   }
 
-  private static createCategoryItem(name: string) {
+  private static createCategoryItem(name: string): HTMLElement {
     const item = document.createElement("button");
     item.textContent = unKebab(name);
     item.classList.add("item");
@@ -81,6 +81,6 @@ export default class Navigation {
   }
 }
 
-function unKebab(string: string) {
+function unKebab(string: string): string {
   return string.split("-").join(" ");
 }

@@ -1,5 +1,6 @@
 @import "./text-style.css";
 @import url("https://fonts.googleapis.com/css2?family=Long+Cang&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 
 :root {
   --dark: black;
@@ -10,6 +11,10 @@
 
 body {
   margin: 0;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
 /* HEADER */
@@ -102,6 +107,16 @@ nav .item {
   align-items: center;
 
   margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.product .discount {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+  background-color: var(--color);
+  padding: 0.25rem;
+  padding-left: 1rem;
 }
 
 .product img {
@@ -109,8 +124,18 @@ nav .item {
   max-height: 100%;
 }
 
+.product .brand-rating-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .product .brand {
   text-transform: uppercase;
+}
+
+.product .rating.material-symbols-outlined {
+  font-size: 1rem;
 }
 
 .product .description {
@@ -119,6 +144,18 @@ nav .item {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.product .price {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.product .original-price {
+  color: var(--faint);
+  text-decoration: line-through;
 }
 
 .product .add-to-cart {
