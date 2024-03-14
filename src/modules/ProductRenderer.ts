@@ -1,50 +1,20 @@
 import { Product } from "./ApiClient.ts";
+import template from "../templates/product.ts";
 
 export default class ProductRenderer {
   static render(product: Product, container: HTMLElement) {
-    const article = document.createElement("article");
-    article.classList.add("product");
+    let article: string = template;
 
-    container.append(article);
+    article = this.removePlaceholders(article, product);
 
-    article.innerHTML = `
-      <div class="product-image-wrapper">
-          <img src="${product.image}" alt="">
-          ${
-            product.discount
-              ? "<span class='discount'>-" + product.discount + "%</span>"
-              : ""
-          }
-      </div>
-      <div class="brand-rating-wrapper">
-        <h3 class="brand"><small>${product.brand}</small></h3>
-        <div aria-label="rated ${
-          product.rating
-        } out of 5" class="rating material-symbols-outlined">${this.getRatingString(
-      product.rating
-    )}</div>
-      </div>
-      <h3 class="title"><b>${product.title}</b></h3>
-      <p class="description"><small>${product.description}</small></p>
-      <p class="price" aria-label="Original price $${
-        product.price
-      }. Now $${this.getProductPrice(product)}">
-      ${
-        product.discount
-          ? "<small class='original-price' aria-hidden='true'>$" +
-            product.price +
-            "</small>"
-          : ""
-      }
-      <b aria-hidden='true' class=" ${
-        product.discount ? "price" : null
-      }">$${this.getProductPrice(product)}</b>
-      </p>
-      <button class="add-to-cart">Add to Cart</button>
-    `;
+    const liEl = document.createElement("li");
+
+    liEl.innerHTML = article;
+
+    container.append(liEl);
   }
 
-  private static getProductPrice({ price, discount }: Product): number {
+  private static getProductPrice(price: number, discount: number): number {
     return Math.round(price * ((100 - discount) / 100));
   }
 
@@ -60,5 +30,73 @@ export default class ProductRenderer {
     }
 
     return string;
+  }
+
+  private static getImageTag({ image, title }: Product) {
+    return `<img src="${image}" alt="Image of ${title}">`;
+  }
+
+  private static getDiscountFlag({ discount }: Product): string {
+    return `<span class='discount'> ${discount} %</span>`;
+  }
+
+  private static removePlaceholders(article: string, product: Product): string {
+    let newArticle = article;
+
+    newArticle = newArticle.replace("-!IMAGE!-", this.getImageTag(product));
+
+    newArticle = newArticle.replace(
+      "-!DISCOUNT FLAG!-",
+      product.discount ? this.getDiscountFlag(product) : ""
+    );
+
+    newArticle = newArticle.replace("-!BRAND!-", product.brand);
+
+    newArticle = newArticle.replace(
+      "-!RATING!-",
+      JSON.stringify(product.rating)
+    );
+
+    newArticle = newArticle.replace(
+      "-!RATING STARS!-",
+      this.getRatingString(product.rating)
+    );
+
+    newArticle = newArticle.replace("-!TITLE!-", product.title);
+
+    newArticle = newArticle.replace("-!DESCRIPTION!-", product.description);
+
+    newArticle = newArticle.replace(
+      "-!PRODUCT PRICE DESCRIPTION!-",
+      this.getProductPriceDescription(product)
+    );
+
+    newArticle = newArticle.replace(
+      "-!PRICE DROP!-",
+      product.discount ? this.getOGPrice(product) : ""
+    );
+
+    newArticle = newArticle.replace(
+      "-!PRICE!-",
+      JSON.stringify(this.getProductPrice(product.price, product.discount))
+    );
+
+    return newArticle;
+  }
+
+  private static getOGPrice({ price }: Product): string {
+    return `<small class="original-price" aria-hidden="true"> $${price}</small>`;
+  }
+
+  private static getProductPriceDescription({
+    price,
+    discount,
+  }: Product): string {
+    return discount
+      ? `Original price $${price}. Now $${this.getProductPrice(
+          price,
+          discount
+        )}.`
+      : "Price $${price}";
   }
 }

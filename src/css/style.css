@@ -5,7 +5,7 @@
 :root {
   --dark: black;
   --light: white;
-  --color: pink;
+  --color: rgb(255, 66, 28);
   --neut: rgb(243, 243, 242);
 }
 
@@ -15,6 +15,10 @@ body {
 
 .material-symbols-outlined {
   font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.template {
+  display: none;
 }
 
 /* HEADER */
@@ -85,6 +89,7 @@ nav .item {
 
 /* PRODUCTS */
 .products {
+  list-style-type: none;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
@@ -93,7 +98,7 @@ nav .item {
   gap: 3rem var(--gap);
 }
 
-.product {
+li {
   width: calc(
     (100% - var(--gap) * (var(--itemsPerRow) - 1)) / var(--itemsPerRow)
   );
@@ -115,6 +120,7 @@ nav .item {
   top: 1rem;
   right: 0;
   background-color: var(--color);
+  color: var(--light);
   padding: 0.25rem;
   padding-left: 1rem;
 }
