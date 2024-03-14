@@ -1,15 +1,11 @@
 import { Product } from "./ApiClient.ts";
 
 export default class ProductRenderer {
-  private static readonly container = document.querySelector(
-    ".product-container"
-  ) as HTMLElement;
-
-  static render(product: Product) {
+  static render(product: Product, container: HTMLElement) {
     const article = document.createElement("article");
     article.classList.add("product");
 
-    this.container.append(article);
+    container.append(article);
 
     article.innerHTML = `
       <div class="product-image-wrapper">
@@ -21,6 +17,7 @@ export default class ProductRenderer {
       <p class="price">
       <b class=" ${product.discount ? "discount" : null}">$${product.price}</b>
       </p>
+      <button class="add-to-cart">Add to Cart</button>
     `;
   }
 }

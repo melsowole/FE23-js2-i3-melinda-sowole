@@ -14,7 +14,13 @@ export default class ApiClient {
   static baseUrl = "https://dummyjson.com/products";
 
   static async fetchData(category?: string): Promise<Product[]> {
-    const res = await fetch(this.baseUrl);
+    const url =
+      this.baseUrl +
+      (typeof category == "string" ? `/category/${category}` : "");
+
+    console.log(url);
+
+    let res = await fetch(url);
     const data = await res.json();
 
     return this.parseProductsData(data.products);

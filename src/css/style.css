@@ -17,7 +17,6 @@ body {
 header {
   background-color: var(--dark);
   color: var(--light);
-  padding: 2rem 0 1.5rem;
 }
 
 header .title {
@@ -26,28 +25,77 @@ header .title {
   font-style: normal;
   font-size: 3rem;
   text-align: center;
+  padding: 2rem 0 1.5rem;
 }
 
 /* PRODUCT SECTION */
 main {
   max-width: 1000px;
   margin: auto;
+  padding: 0 clamp(0.5rem, 2vw, 2rem);
+  padding-bottom: 10vmin;
 }
 
+.nav-item-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* NAVIDATION */
+aside small {
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+nav {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+
+  --gap: 1rem;
+  gap: var(--gap);
+}
+
+nav .category-name {
+  display: none;
+  text-transform: capitalize;
+  margin: 0;
+}
+nav .category-name::before {
+  content: "— ";
+}
+nav .item-wrapper {
+  display: flex;
+  gap: var(--gap);
+}
+
+nav .item {
+  text-transform: capitalize;
+  text-wrap: nowrap;
+  background-color: var(--dark);
+  color: var(--light);
+  border: none;
+  padding: 0.5rem;
+}
+
+/* PRODUCTS */
 .products {
   margin: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-items: center;
-  gap: 1.5rem 1.5rem;
+  --gap: 1.5rem;
+  --itemsPerRow: 2;
+  gap: 3rem var(--gap);
 }
 
 .product {
-  width: 200px;
+  width: calc(
+    (100% - var(--gap) * (var(--itemsPerRow) - 1)) / var(--itemsPerRow)
+  );
 }
 
 .product .product-image-wrapper {
-  height: 250px;
+  aspect-ratio: 4/5;
   background-color: var(--neut);
   display: flex;
   justify-content: center;
@@ -73,6 +121,14 @@ main {
   text-overflow: ellipsis;
 }
 
+.product .add-to-cart {
+  padding: 0.5rem;
+  background-color: transparent;
+  border: 1px solid var(--dark);
+  cursor: pointer;
+  width: 100%;
+}
+
 /* FOOTER */
 footer {
   background-color: var(--dark);
@@ -88,4 +144,55 @@ footer {
 footer a {
   color: inherit;
   margin-right: 1rem;
+}
+
+@media (min-width: 600px) {
+  .products {
+    --itemsPerRow: 3;
+  }
+}
+
+@media (min-width: 800px) {
+  .nav-item-flex {
+    flex-direction: row;
+  }
+
+  nav {
+    width: 200px;
+    flex-direction: column;
+    --gap: 1.5rem;
+    overflow: hidden;
+  }
+
+  nav .category-name {
+    display: block;
+  }
+
+  nav .item-wrapper {
+    display: block;
+  }
+
+  nav .item {
+    display: block;
+    padding-left: 0;
+    background-color: transparent;
+    color: var(--dark);
+    cursor: pointer;
+  }
+
+  nav .item:hover {
+    text-decoration: underline;
+  }
+
+  .products {
+    --gap: 1.5rem;
+    --itemsPerRow: 3;
+  }
+}
+
+@media (min-width: 1000px) {
+  .products {
+    --gap: 1.5rem;
+    --itemsPerRow: 4;
+  }
 }
