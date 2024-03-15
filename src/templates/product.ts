@@ -16,8 +16,8 @@ export default `
         <h3 class="title"><b>{{TITLE}}</b></h3>
         <p class="description"><small>{{DESCRIPTION}}</small></p>
         <p class="price" aria-label="{{PRODUCT PRICE DESCRIPTION}}">
-            <b class="price" aria-hidden="true">$ {{PRICE}}</b>
-            {{PRICE DROP}}
+        <b class="price" aria-hidden="true">$ {{PRICE}}</b>
+        {{PRICE DROP}}
         </p>
         <small class="stock {{WARNING}}">Left in stock: {{STOCK}}</small>
         <button class="add-to-cart" id="{{ID}}">Add to Cart</button>

@@ -1,4 +1,5 @@
 export type Product = {
+  id: number;
   image: string;
   title: string;
   description: string;
@@ -27,6 +28,7 @@ export default class ApiClient {
   private static parseProductsData(productsData: any[]): Product[] {
     return productsData.map(
       ({
+        id,
         images,
         title,
         description,
@@ -38,6 +40,7 @@ export default class ApiClient {
         discountPercentage,
       }) => {
         return {
+          id,
           title,
           brand,
           price,
