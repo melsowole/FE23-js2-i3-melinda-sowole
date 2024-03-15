@@ -37,49 +37,54 @@ export default class ProductRenderer {
   }
 
   private static getDiscountFlag({ discount }: Product): string {
-    return `<span class='discount'> ${discount} %</span>`;
+    return `<span class='discount'><small>${discount}%</small></span>`;
   }
 
   private static removePlaceholders(article: string, product: Product): string {
     let newArticle = article;
 
-    newArticle = newArticle.replace("-!IMAGE!-", this.getImageTag(product));
+    newArticle = newArticle.replace("{{IMAGE}}", this.getImageTag(product));
 
     newArticle = newArticle.replace(
-      "-!DISCOUNT FLAG!-",
+      "{{DISCOUNT FLAG}}",
       product.discount ? this.getDiscountFlag(product) : ""
     );
 
-    newArticle = newArticle.replace("-!BRAND!-", product.brand);
+    newArticle = newArticle.replace("{{BRAND}}", product.brand);
+
+    newArticle = newArticle.replace("{{RATING}}", product.rating.toString());
 
     newArticle = newArticle.replace(
-      "-!RATING!-",
-      JSON.stringify(product.rating)
-    );
-
-    newArticle = newArticle.replace(
-      "-!RATING STARS!-",
+      "{{RATING STARS}}",
       this.getRatingString(product.rating)
     );
 
-    newArticle = newArticle.replace("-!TITLE!-", product.title);
+    newArticle = newArticle.replace("{{TITLE}}", product.title);
 
-    newArticle = newArticle.replace("-!DESCRIPTION!-", product.description);
+    newArticle = newArticle.replace("{{DESCRIPTION}}", product.description);
 
     newArticle = newArticle.replace(
-      "-!PRODUCT PRICE DESCRIPTION!-",
+      "{{PRODUCT PRICE DESCRIPTION}}",
       this.getProductPriceDescription(product)
     );
 
     newArticle = newArticle.replace(
-      "-!PRICE DROP!-",
+      "{{PRICE DROP}}",
       product.discount ? this.getOGPrice(product) : ""
     );
 
     newArticle = newArticle.replace(
-      "-!PRICE!-",
+      "{{PRICE}}",
       JSON.stringify(this.getProductPrice(product.price, product.discount))
     );
+
+    newArticle = newArticle.replace("{{STOCK}}", product.stock.toString());
+    newArticle = newArticle.replace(
+      "{{WARNING}}",
+      product.stock < 10 ? "warning" : ""
+    );
+
+    newArticle = newArticle.replace("{{ID}}", product.id.toString());
 
     return newArticle;
   }
